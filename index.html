@@ -54,6 +54,7 @@
         .nav-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
 
         button {
@@ -71,6 +72,71 @@
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #userInfo {
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .user-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #userName {
+            font-weight: 600;
+        }
+
+        #userRole {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        #logoutBtn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== MESSAGES ==================== */
+        #messageBox {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1001;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
         }
 
         /* ==================== HERO SECTION ==================== */
@@ -161,6 +227,196 @@
             padding: 2rem;
         }
 
+        /* ==================== MODAL ==================== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==================== AUTH TABS ==================== */
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .form-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .form-tab:hover {
+            color: #667eea;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ==================== FORMS ==================== */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, textarea, select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #f9f9ff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        form button {
+            background-color: #667eea !important;
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        form button:hover {
+            background-color: #764ba2 !important;
+        }
+
+        /* ==================== ROLE SELECTION ==================== */
+        .role-selection {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .role-option {
+            padding: 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .role-option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .role-option.selected {
+            border-color: #667eea;
+            background: #e8f0ff;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .role-option .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-option p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== OTP SECTION ==================== */
+        .otp-section {
+            display: none;
+            text-align: center;
+        }
+
+        #otpInputs, #regOtpInputs {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .otp-digit {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 2px solid #e0e0e0 !important;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .otp-digit:focus {
+            border-color: #667eea !important;
+        }
+
         /* ==================== TEAM SECTION ==================== */
         .team-section {
             background: white;
@@ -214,6 +470,65 @@
             font-size: 0.95rem;
         }
 
+        /* ==================== USERS SECTION ==================== */
+        #usersSection {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        #usersSection h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 1rem;
+        }
+
+        #usersGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .user-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #764ba2;
+            transition: transform 0.3s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.2);
+        }
+
+        .user-card h4 {
+            color: #667eea;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .user-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .user-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
         /* ==================== SECTION HEADERS ==================== */
         .section-header {
             display: flex;
@@ -238,90 +553,6 @@
 
         .admin-btn:hover {
             background-color: #229954 !important;
-        }
-
-        /* ==================== MODAL ==================== */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-            animation: slideDown 0.3s ease;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 1.8rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: #000;
-        }
-
-        .modal h2 {
-            color: #667eea;
-            margin-bottom: 1.5rem;
-        }
-
-        /* ==================== FORMS ==================== */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        input, textarea, select {
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            background-color: #f9f9ff;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        form button {
-            background-color: #667eea !important;
-            color: white !important;
-            padding: 0.75rem 1.5rem;
-            margin-top: 0.5rem;
-        }
-
-        form button:hover {
-            background-color: #764ba2 !important;
         }
 
         /* ==================== INTERNSHIP SECTION ==================== */
@@ -550,23 +781,20 @@
                 grid-template-columns: 1fr;
             }
 
+            .role-selection {
+                grid-template-columns: 1fr;
+            }
+
             table {
                 font-size: 0.9rem;
             }
         }
-
-        /* ==================== ANIMATIONS ==================== */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .loading {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
     </style>
 </head>
 <body>
+    <!-- ==================== MESSAGE BOX ==================== -->
+    <div id="messageBox"></div>
+
     <!-- ==================== HEADER ==================== -->
     <header>
         <div class="header-container">
@@ -575,21 +803,91 @@
                 <span>SysBioP Lab</span>
             </div>
             <div class="nav-buttons">
-                <button id="loginBtn">Login</button>
+                <button id="loginBtn" onclick="showAuthModal()">Login / Register</button>
+                <div id="userInfo">
+                    <div class="user-display">
+                        <span id="userName"></span>
+                        <span id="userRole"></span>
+                    </div>
+                    <button id="logoutBtn" onclick="logout()">Logout</button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- ==================== LOGIN MODAL ==================== -->
-    <div id="loginModal" class="modal">
+    <!-- ==================== AUTH MODAL ==================== -->
+    <div id="authModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Supervisor Login</h2>
-            <form id="loginForm">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            
+            <div class="auth-tabs">
+                <button class="form-tab active" onclick="switchAuthTab('login')">Login</button>
+                <button class="form-tab" onclick="switchAuthTab('register')">Register</button>
+            </div>
+
+            <!-- ==================== LOGIN TAB ==================== -->
+            <div id="loginTab" class="tab-content active">
+                <h2>Supervisor / Scholar Login</h2>
+                <form id="loginForm">
+                    <input type="text" id="loginPhone" placeholder="Enter 10-digit mobile number" maxlength="10" required>
+                    <button type="submit">Send OTP</button>
+                </form>
+                
+                <div id="otpSection" class="otp-section">
+                    <h3>Verify OTP</h3>
+                    <p>Enter the 6-digit OTP sent to your phone</p>
+                    <div id="otpInputs"></div>
+                    <button onclick="verifyOTP()" style="margin-top: 1rem;">Verify & Login</button>
+                    <button onclick="document.getElementById('otpSection').style.display='none'; document.getElementById('loginForm').style.display='flex';" style="margin-top: 0.5rem; background-color: #999;">Change Phone</button>
+                </div>
+            </div>
+
+            <!-- ==================== REGISTER TAB ==================== -->
+            <div id="registerTab" class="tab-content">
+                <h2>Create New Account</h2>
+                <form id="registerForm">
+                    <input type="text" id="regName" placeholder="Full Name" required>
+                    <input type="email" id="regEmail" placeholder="Email Address" required>
+                    <input type="text" id="regPhone" placeholder="10-digit Mobile Number" maxlength="10" required>
+                    <input type="password" id="regPassword" placeholder="Password (min 6 characters)" required>
+                    <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+                    
+                    <p style="color: #667eea; font-weight: 600; margin: 1rem 0 0.5rem 0;">Select Your Role:</p>
+                    <div class="role-selection">
+                        <div class="role-option" onclick="selectRole('Professor')">
+                            <div class="icon">👨‍🏫</div>
+                            <strong>Professor</strong>
+                            <p>Lab Supervisor</p>
+                        </div>
+                        <div class="role-option" onclick="selectRole('Scholar')">
+                            <div class="icon">👨‍🎓</div>
+                            <strong>Scholar</strong>
+                            <p>Research Scholar</p>
+                        </div>
+                        <div class="role-option" onclick="selectRole('Intern')">
+                            <div class="icon">👨‍💼</div>
+                            <strong>Intern</strong>
+                            <p>Internship Student</p>
+                        </div>
+                        <div class="role-option" onclick="selectRole('Student')">
+                            <div class="icon">👨‍🎒</div>
+                            <strong>Student</strong>
+                            <p>Lab Student</p>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="selectedRole">
+                    <button type="submit">Send OTP</button>
+                </form>
+
+                <div id="regOtpSection" class="otp-section">
+                    <h3>Verify Your Phone</h3>
+                    <p>Enter the 6-digit OTP sent to your mobile number</p>
+                    <div id="regOtpInputs"></div>
+                    <button onclick="verifyRegistrationOTP()" style="margin-top: 1rem;">Verify & Create Account</button>
+                    <button onclick="document.getElementById('regOtpSection').style.display='none'; document.getElementById('registerForm').style.display='flex';" style="margin-top: 0.5rem; background-color: #999;">Change Phone</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -623,6 +921,12 @@
                     <p>Research Scholar</p>
                 </div>
             </div>
+        </section>
+
+        <!-- ==================== USERS SECTION ==================== -->
+        <section id="usersSection" style="display: none;">
+            <h2>👥 Lab Members</h2>
+            <div id="usersGrid"></div>
         </section>
 
         <!-- ==================== INTERNSHIP SECTION ==================== -->
