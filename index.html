@@ -1,25 +1,731 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SysBiop Lab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysBioP Lab - Systems Biology & Bioinformatics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* ==================== HEADER & NAVIGATION ==================== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: #667eea;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            top: 10%;
+            left: 10%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+            bottom: 10%;
+            right: 10%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ==================== TEAM SECTION ==================== */
+        .team-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .team-section h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .team-member .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-member h4 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== SECTION HEADERS ==================== */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #764ba2;
+        }
+
+        .section-header h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .admin-btn {
+            background-color: #27ae60 !important;
+            color: white !important;
+            display: none;
+        }
+
+        .admin-btn:hover {
+            background-color: #229954 !important;
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==================== FORMS ==================== */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, textarea, select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #f9f9ff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        form button {
+            background-color: #667eea !important;
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        form button:hover {
+            background-color: #764ba2 !important;
+        }
+
+        /* ==================== INTERNSHIP SECTION ==================== */
+        .internship-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .internship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .internship-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .internship-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .internship-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .internship-content h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .school {
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .duration {
+            color: #27ae60;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+        }
+
+        .stipend {
+            background-color: #e8f8f5;
+            color: #27ae60;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .internship-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* ==================== EQUIPMENT SECTION ==================== */
+        .equipment-table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .equipment-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .equipment-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .equipment-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .equipment-table tbody tr:hover {
+            background-color: #f9f9ff;
+        }
+
+        /* Status Badges */
+        .status-available {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-low {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-used {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-available, .status-low, .status-used {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* ==================== SUPPLIES SECTION ==================== */
+        .supply-category {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .supply-category-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .supply-list {
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .supply-item {
+            background: #f9f9ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .supply-item h5 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .supply-item-info {
+            flex-grow: 1;
+        }
+
+        .quantity {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .supply-item-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+            }
+
+            .supply-list {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🧬</span>
+                <span>SysBioP Lab</span>
+            </div>
+            <div class="nav-buttons">
+                <button id="loginBtn">Login</button>
+            </div>
+        </div>
+    </header>
 
-<h1>SysBiop Lab</h1>
-<p>Systems Biology & Bioinformatics Lab</p>
+    <!-- ==================== LOGIN MODAL ==================== -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Supervisor Login</h2>
+            <form id="loginForm">
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 
-<h2>About</h2>
-<p>This lab works on bioinformatics, drug design, and systems biology.</p>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Systems Biology & Bioinformatics Lab</h1>
+            <p>Advanced Research in Molecular Biology, Drug Design & Bioinformatics</p>
+        </div>
+    </section>
 
-<h2>Research</h2>
-<ul>
-    <li>Metagenomics</li>
-    <li>Molecular Docking</li>
-    <li>QSAR Modeling</li>
-</ul>
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="container">
+        <!-- ==================== TEAM SECTION ==================== -->
+        <section class="team-section">
+            <h2>🧑‍🔬 Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="icon">👨‍🏫</div>
+                    <h4>Dr. Arabinda Ghosh</h4>
+                    <p>Lab Supervisor & Principal Investigator</p>
+                </div>
+                <div class="team-member">
+                    <div class="icon">👨‍🎓</div>
+                    <h4>Abhijit Reang</h4>
+                    <p>Research Scholar</p>
+                </div>
+                <div class="team-member">
+                    <div class="icon">👨‍🎓</div>
+                    <h4>Sandip Das</h4>
+                    <p>Research Scholar</p>
+                </div>
+            </div>
+        </section>
 
-<h2>Contact</h2>
-<p>Email: your email</p>
+        <!-- ==================== INTERNSHIP SECTION ==================== -->
+        <section>
+            <div class="section-header">
+                <h2>📚 Internship Records</h2>
+                <button class="admin-btn" id="adminInternshipBtn" onclick="openInternshipForm()">➕ Add Internship</button>
+            </div>
+            <div id="internshipGallery" class="internship-gallery"></div>
+        </section>
 
+        <!-- Internship Form Modal -->
+        <div id="internshipForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeInternshipForm()">&times;</span>
+                <h2>Add New Internship Record</h2>
+                <form id="newInternshipForm">
+                    <input type="text" placeholder="Student Name" required>
+                    <input type="text" placeholder="School/College Name" required>
+                    <input type="text" placeholder="Project Title" required>
+                    <input type="text" placeholder="Duration (e.g., 2 months)" required>
+                    <input type="number" placeholder="Stipend (₹)" min="0" step="1000">
+                    <textarea placeholder="Project Description"></textarea>
+                    <input type="url" placeholder="Image URL (optional)">
+                    <button type="submit">Add Record</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== EQUIPMENT SECTION ==================== -->
+        <section style="margin-top: 3rem;">
+            <div class="section-header">
+                <h2>🔬 Laboratory Equipment</h2>
+                <button class="admin-btn" id="adminEquipBtn" onclick="openEquipmentForm()">➕ Add Equipment</button>
+            </div>
+            <table class="equipment-table">
+                <thead>
+                    <tr>
+                        <th>Equipment Name</th>
+                        <th>Description</th>
+                        <th>Model/Serial</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="equipmentBody"></tbody>
+            </table>
+        </section>
+
+        <!-- Equipment Form Modal -->
+        <div id="equipmentForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEquipmentForm()">&times;</span>
+                <h2>Add New Equipment</h2>
+                <form id="newEquipmentForm">
+                    <input type="text" placeholder="Equipment Name" required>
+                    <textarea placeholder="Description"></textarea>
+                    <input type="text" placeholder="Model/Serial Number">
+                    <input type="text" placeholder="Status (Available/In Use/Maintenance)" required>
+                    <button type="submit">Add Equipment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== SUPPLIES SECTION ==================== -->
+        <section style="margin-top: 3rem;">
+            <div class="section-header">
+                <h2>🧫 Lab Supplies & Inventory</h2>
+                <button class="admin-btn" id="adminSupplyBtn" onclick="openSupplyForm()">➕ Add Supply</button>
+            </div>
+            <div id="suppliesContainer"></div>
+        </section>
+
+        <!-- Supply Form Modal -->
+        <div id="supplyForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeSupplyForm()">&times;</span>
+                <h2>Add Supply Item</h2>
+                <form id="newSupplyForm">
+                    <input type="text" placeholder="Item Name" required>
+                    <select required>
+                        <option value="">Select Category</option>
+                        <option value="Glassware">Glassware</option>
+                        <option value="Plastic Wares">Plastic Wares</option>
+                        <option value="Media">Media</option>
+                        <option value="Reagents">Reagents</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" placeholder="Quantity" required>
+                    <input type="text" placeholder="Status (Available/Low Stock/Used Up)" required>
+                    <textarea placeholder="Additional Notes"></textarea>
+                    <button type="submit">Add Supply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p><strong>SysBioP Lab</strong> - Systems Biology & Bioinformatics Laboratory</p>
+        <p>Supervised by Dr. Arabinda Ghosh</p>
+        <p>&copy; 2026. All rights reserved. | Professional Lab Management System</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
